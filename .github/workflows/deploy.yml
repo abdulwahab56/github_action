@@ -1,4 +1,4 @@
-name: Deploy NodeJS Application to Hostinger
+name: Deploy NodeJS App to EC2
 
 on:
   push:
@@ -10,17 +10,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Deploy Via SSH
+      - name: Deploy via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SSH_Host }}
-          username: ubuntu
-          key: ${{ secrets.SSH_KEY }} 
+          username: ubuntu             # correct Ubuntu user
+          key: ${{ secrets.SSH_Key }}
           port: 22
+          debug: true                  # show SSH logs
           script: |
+            echo "Deploying to $(whoami)@$(hostname)"
             cd /home/ubuntu/github_action
             git pull origin main
             docker compose up -d --build
+
