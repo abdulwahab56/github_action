@@ -1,0 +1,24 @@
+name: Deply NodeJS Application to Hostinger
+
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    run-on: ubuntu-lates
+
+    steps:
+      - name: Checkout Code
+        uses: actions/Checkout@v4
+        
+      - name: Deploy Via SSH
+        uses: applyboy/ssh-actions@v1.0.3
+        with:
+          host: ${{secrets.SSH_Host}}
+          username: root
+          key: ${{secrets.SSH_Key}}
+          script: |
+            cd /home/ubuntu/github_action
+            git pull
+            docker compose up -d --build
