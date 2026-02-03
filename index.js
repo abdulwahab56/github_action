@@ -8,7 +8,7 @@
 
  app.get("/",(req,res)=>{
     
-    return res.json({msg: "Hello message from server v1"})
+    return res.json({msg: "Hello message from server"})
 
  })
 
