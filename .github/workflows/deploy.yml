@@ -19,8 +19,6 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ubuntu             # correct Ubuntu user
           key: ${{ secrets.SSH_KEY }}
-          port: 22
-          debug: true                  # show SSH logs
           script: |
             echo "Deploying to $(whoami)@$(hostname)"
             cd /home/ubuntu/github_action
